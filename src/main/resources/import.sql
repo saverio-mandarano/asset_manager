@@ -21,28 +21,28 @@ INSERT INTO categories (name) VALUES ('Stock');
 -- =========================
 
 -- STOCK (solo big tech)
-INSERT INTO assets (name, ticker, price, description, category_id) VALUES
-('Apple Inc.', 'AAPL', 228.50, 'Big tech hardware e servizi digitali.', 4),
-('Microsoft Corporation', 'MSFT', 415.30, 'Software enterprise e cloud computing.', 4),
-('Nvidia Corporation', 'NVDA', 875.28, 'GPU e infrastrutture AI.', 4),
-('Google / Alphabet Inc.', 'GOOGL', 140.80, 'Search, advertising e AI.', 4);
+INSERT INTO assets (name, ticker, lastPrice, description, imageUrl, category_id) VALUES
+('Apple Inc.', 'AAPL', 228.50, 'Big tech hardware e servizi digitali.', '/images/apple.png', 4),
+('Microsoft Corporation', 'MSFT', 415.30, 'Software enterprise e cloud computing.', '/images/microsoft.png', 4),
+('Nvidia Corporation', 'NVDA', 875.28, 'GPU e infrastrutture AI.', '/images/nvidia.png', 4),
+('Google / Alphabet Inc.', 'GOOGL', 140.80, 'Search, advertising e AI.', '/images/google.png', 4);
 
 -- CRYPTO
-INSERT INTO assets (name, ticker, price, description, category_id) VALUES
-('Bitcoin', 'BTC', 65000, 'Criptovaluta principale decentralizzata.', 1),
-('Ethereum', 'ETH', 3500, 'Blockchain per smart contract e DeFi.', 1),
-('Dogecoin', 'DOGE', 0.15, 'Criptovaluta altamente speculativa.', 1);
+INSERT INTO assets (name, ticker, lastPrice, description, imageUrl, category_id) VALUES
+('Bitcoin', 'BTC', 65000, 'Criptovaluta principale decentralizzata.', '/images/bitcoin.png', 1),
+('Ethereum', 'ETH', 3500, 'Blockchain per smart contract e DeFi.', '/images/ethereum.png', 1),
+('Dogecoin', 'DOGE', 0.15, 'Criptovaluta altamente speculativa.', '/images/dogecoin.png', 1);
 
 -- COMMODITY
-INSERT INTO assets (name, ticker, price, description, category_id) VALUES
-('Gold', 'XAU', 2350, 'Metallo prezioso rifugio sicuro.', 3),
-('Silver', 'XAG', 28.50, 'Metallo industriale e prezioso.', 3);
+INSERT INTO assets (name, ticker, lastPrice, description, imageUrl, category_id) VALUES
+('Gold', 'XAU', 2350, 'Metallo prezioso rifugio sicuro.', '/images/gold.png', 3),
+('Silver', 'XAG', 28.50, 'Metallo industriale e prezioso.', '/images/silver.png', 3);
 
 -- BOND
-INSERT INTO assets (name, ticker, price, description, category_id) VALUES
-('US Treasury Bond', 'UST10Y', 100, 'Titolo di stato USA a lungo termine.', 2),
-('German Government Bond', 'DE10Y', 98, 'Bund tedesco considerato molto sicuro.', 2),
-('Italian Government Bond', 'IT10Y', 95, 'BTP italiano con rischio medio.', 2);
+INSERT INTO assets (name, ticker, lastPrice, description, imageUrl, category_id) VALUES
+('US Treasury Bond', 'UST10Y', 100, 'Titolo di stato USA a lungo termine.', '/images/us_bond.png', 2),
+('German Government Bond', 'DE10Y', 98, 'Bund tedesco considerato molto sicuro.', '/images/german_bond.png', 2),
+('Italian Government Bond', 'IT10Y', 95, 'BTP italiano con rischio medio.', '/images/italian_bond.png', 2);
 
 -- =========================
 -- TAGS (ridotti e normalizzati)
