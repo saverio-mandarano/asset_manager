@@ -36,11 +36,13 @@ public class Asset {
 
     @NotNull
     @DecimalMin(value = "0.00", message = "The price cannot be negative ")
+    @Column(name = "last_price")
     private BigDecimal lastPrice;
 
     private String description;
 
     @NotBlank
+    @Column(name = "image_url")
     private String imageUrl;
 
     @ManyToOne
