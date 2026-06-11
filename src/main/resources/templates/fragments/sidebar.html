@@ -1,0 +1,16 @@
+<div th:fragment="sidebar">
+  <h5>
+    Welcome,
+    <strong sec:authentication="name"></strong> !
+  </h5>
+  <h6>Role: <strong sec:authentication="principal.authorities"></strong></h6>
+  <hr />
+  <nav class="nav flex-column">
+    <a class="nav-link active nav-pills" th:href="@{/}">Dashboard </a>
+    <a class="nav-link" th:href="@{/assets}">Assets</a>
+    <a class="nav-link" th:href="@{/categories}">Categories</a>
+    <a class="nav-link" th:href="@{/tags}">Tags</a>
+    <hr />
+    <a class="nav-link text-danger" th:href="@{/logout}"> Logout </a>
+  </nav>
+</div>
