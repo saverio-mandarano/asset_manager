@@ -138,4 +138,31 @@ public class AssetController {
         return "redirect:/assets";
     }
 
+    // UPDATE
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("asset", assetService.findById(id));
+        // model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("edit", true);
+
+        model.addAttribute("content", "assets/create-or-edit");
+        return "layout/main";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("asset") Asset formAsset,
+            BindingResult bindingResult, Model model) {
+        // model.addAttribute("ingredients", ingredientRepository.findAll());
+
+        if (bindingResult.hasErrors()) {
+            // check***
+            model.addAttribute("edit", true);
+
+            model.addAttribute("content", "assets/create-or-edit");
+            return "layout/main";
+        }
+
+        assetService.create(formAsset);
+        return "redirect:/assets/" + formAsset.getId();
+    }
 }
