@@ -4,8 +4,8 @@ SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO roles (name) VALUES ('ADMIN');
 INSERT INTO roles (name) VALUES ('USER');
 
-INSERT INTO users (username, password) VALUES ('ADMIN', 'admin');
-INSERT INTO users (username, password) VALUES ('USER', 'user');
+INSERT INTO users (username, password) VALUES ('ADMIN', '{noop}password');
+INSERT INTO users (username, password) VALUES ('USER', '{noop}password');
 
 INSERT INTO role_user (user_id, role_id) VALUES (1, 1);
 INSERT INTO role_user (user_id, role_id) VALUES (2, 2);
