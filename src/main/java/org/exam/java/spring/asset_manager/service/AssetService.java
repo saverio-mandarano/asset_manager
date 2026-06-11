@@ -1,0 +1,91 @@
+package org.exam.java.spring.asset_manager.service;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+
+import org.exam.java.spring.asset_manager.model.Asset;
+import org.exam.java.spring.asset_manager.repository.AssetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AssetService {
+
+    @Autowired
+    private AssetRepository assetRepository;
+
+    // READ
+    public List<Asset> findAll() {
+        return assetRepository.findAll();
+    }
+
+    public List<Asset> findAllSortedByPrice() {
+        return assetRepository.findAll(Sort.by("lastPrice"));
+    }
+
+    public List<Asset> findAllSortedByName() {
+        return assetRepository.findAll(Sort.by("name"));
+    }
+
+    public List<Asset> findAllSortedByTicker() {
+        return assetRepository.findAll(Sort.by("ticker"));
+    }
+
+    // public Optional<Asset> findById(Integer id) {
+    // return assetRepository.findById(id);
+    // }
+
+    // public Asset getById(Integer id) {
+    // Optional<Asset> assetAttempt = assetRepository.findById(id);
+
+    // if (assetAttempt.isEmpty()) {
+    // // lanciare not found con una response entity
+    // }
+
+    // return assetAttempt.get();
+    // }
+
+    public Asset findById(Integer id) {
+        Optional<Asset> assetAttempt = assetRepository.findById(id);
+
+        if (assetAttempt.isEmpty()) {
+            throw new RuntimeException("Asset not found with id: " + id);
+        }
+
+        return assetAttempt.get();
+    }
+
+    public List<Asset> findByName(String name) {
+        return assetRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Asset> findByTicker(String ticker) {
+        return assetRepository.findByTickerContainingIgnoreCase(ticker);
+    }
+
+    public List<Asset> findByPriceGreater(BigDecimal lastPrice) {
+        return assetRepository.findByLastPriceGreaterThanEqual(lastPrice);
+    }
+
+    public List<Asset> findByPriceLess(BigDecimal lastPrice) {
+        return assetRepository.findByLastPriceLessThanEqual(lastPrice);
+    }
+
+    public List<Asset> findByTickerOrName(String query) {
+        return assetRepository.findByTickerContainingIgnoreCaseOrNameContainingIgnoreCase(query,
+                query);
+    }
+
+    // CREATE
+    public Asset create(Asset asset) {
+        return assetRepository.save(asset);
+    }
+
+    // // UPDATE
+    public Asset update(Asset asset) {
+        return assetRepository.save(asset);
+    }
+
+}
