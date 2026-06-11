@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/assets")
@@ -111,5 +115,27 @@ public class AssetController {
     }
 
     // CREATE
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("asset", new Asset());
+        // model.addAttribute("ingredients", ingredientRepository.findAll());
+
+        model.addAttribute("content", "assets/create-or-edit");
+        return "layout/main";
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("asset") Asset formAsset,
+            BindingResult bindingResult, Model model) {
+        // model.addAttribute("ingredients", ingredientRepository.findAll());
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("content", "assets/create-or-edit");
+            return "layout/main";
+        }
+
+        assetService.create(formAsset);
+        return "redirect:/assets";
+    }
 
 }
