@@ -65,7 +65,7 @@ public class AssetController {
         }
 
         model.addAttribute("assets", assets);
-        model.addAttribute("username", authentication.getName());
+        // model.addAttribute("username", authentication.getName());
         model.addAttribute("pageTitle", "Asset list");
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("direction", direction);
@@ -78,6 +78,7 @@ public class AssetController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("asset", assetService.findById(id));
+        model.addAttribute("pageTitle", "Asset details");
 
         model.addAttribute("content", "assets/show");
         return "layout/main";
@@ -95,6 +96,7 @@ public class AssetController {
         }
 
         model.addAttribute("assets", assets);
+        model.addAttribute("pageTitle", "Asset list");
 
         model.addAttribute("content", "assets/index");
         return "layout/main";
@@ -112,6 +114,7 @@ public class AssetController {
         }
 
         model.addAttribute("assets", assets);
+        model.addAttribute("pageTitle", "Asset list");
 
         model.addAttribute("content", "assets/index");
         return "layout/main";
@@ -130,6 +133,7 @@ public class AssetController {
     // }
 
     // model.addAttribute("assets", assets);
+    // model.addAttribute("pageTitle", "Asset list");
 
     // return "assets/index";
     // }
@@ -146,6 +150,7 @@ public class AssetController {
         }
 
         model.addAttribute("assets", assets);
+        model.addAttribute("pageTitle", "Asset list");
 
         model.addAttribute("content", "assets/index");
         return "layout/main";
@@ -156,6 +161,7 @@ public class AssetController {
     public String create(Model model) {
         model.addAttribute("asset", new Asset());
         // model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("pageTitle", "Asset create");
 
         model.addAttribute("content", "assets/create-or-edit");
         return "layout/main";
@@ -165,6 +171,7 @@ public class AssetController {
     public String store(@Valid @ModelAttribute("asset") Asset formAsset,
             BindingResult bindingResult, Model model) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("pageTitle", "Asset create");
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("content", "assets/create-or-edit");
@@ -181,6 +188,7 @@ public class AssetController {
         model.addAttribute("asset", assetService.findById(id));
         // model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("edit", true);
+        model.addAttribute("pageTitle", "Asset edit");
 
         model.addAttribute("content", "assets/create-or-edit");
         return "layout/main";
@@ -190,6 +198,7 @@ public class AssetController {
     public String update(@Valid @ModelAttribute("asset") Asset formAsset,
             BindingResult bindingResult, Model model) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("pageTitle", "Asset edit");
 
         if (bindingResult.hasErrors()) {
             // check***
