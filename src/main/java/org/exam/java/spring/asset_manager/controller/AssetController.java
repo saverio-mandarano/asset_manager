@@ -1,11 +1,11 @@
 package org.exam.java.spring.asset_manager.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.exam.java.spring.asset_manager.model.Asset;
 import org.exam.java.spring.asset_manager.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +28,47 @@ public class AssetController {
 
     // READ
     @GetMapping
-    public String index(Authentication authentication, Model model) {
-        List<Asset> assets = assetService.findAll();
+    public String index(Authentication authentication,
+            @RequestParam(name = "sortBy", required = false) String sortBy,
+            @RequestParam(name = "direction", required = false) String direction,
+            Model model) {
+
+        if (direction == null
+                || !(direction.equalsIgnoreCase("asc") || direction.equalsIgnoreCase("desc"))) {
+            direction = "asc";
+        }
+
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC
+                : Sort.Direction.ASC;
+        List<Asset> assets;
+
+        if (sortBy != null) {
+            switch (sortBy) {
+                case "ticker":
+                    assets = assetService.findAllSorted("ticker", sortDirection);
+                    break;
+                case "name":
+                    assets = assetService.findAllSorted("name", sortDirection);
+                    break;
+                case "category":
+                    assets = assetService.findAllSorted("category.name", sortDirection);
+                    break;
+                case "price":
+                    assets = assetService.findAllSorted("lastPrice", sortDirection);
+                    break;
+                default:
+                    assets = assetService.findAll();
+                    sortBy = null;
+            }
+        } else {
+            assets = assetService.findAll();
+        }
+
         model.addAttribute("assets", assets);
         model.addAttribute("username", authentication.getName());
+        model.addAttribute("pageTitle", "Asset list");
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
 
         model.addAttribute("content", "assets/index");
         return "layout/main";

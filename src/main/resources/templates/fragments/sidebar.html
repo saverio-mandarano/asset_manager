@@ -6,11 +6,34 @@
   <h6>Role: <strong sec:authentication="principal.authorities"></strong></h6>
   <hr />
   <nav class="nav flex-column">
-    <a class="nav-link active nav-pills" th:href="@{/}">Dashboard </a>
-    <a class="nav-link" th:href="@{/assets}">Assets</a>
-    <a class="nav-link" th:href="@{/categories}">Categories</a>
-    <a class="nav-link" th:href="@{/tags}">Tags</a>
+    <a
+      class="nav-link active nav-pills d-flex align-items-center fs-5"
+      th:href="@{/}"
+    >
+      <i class="fa-solid fa-chart-column me-2"></i>
+
+      Dashboard
+    </a>
+    <a class="nav-link d-flex align-items-center fs-5" th:href="@{/assets}">
+      <i class="fa-solid fa-hand-holding-dollar me-2"></i>
+
+      Assets
+    </a>
+    <a class="nav-link d-flex align-items-center fs-5" th:href="@{/categories}">
+      <i class="fa-solid fa-chart-pie me-2"></i>
+      Categories
+    </a>
+    <a class="nav-link d-flex align-items-center fs-5" th:href="@{/tags}">
+      <i class="fa-solid fa-tags me-2"></i>
+      Tags
+    </a>
     <hr />
-    <a class="nav-link text-danger" th:href="@{/logout}"> Logout </a>
+    <a
+      class="nav-link text-danger d-flex align-items-center"
+      th:href="@{/logout}"
+    >
+      <i class="fa-solid fa-right-from-bracket me-2"></i>
+      Logout
+    </a>
   </nav>
 </div>

@@ -21,6 +21,10 @@ public class AssetService {
         return assetRepository.findAll();
     }
 
+    public List<Asset> findAllSorted(String property, Sort.Direction direction) {
+        return assetRepository.findAll(Sort.by(direction, property));
+    }
+
     public List<Asset> findAllSortedByPrice() {
         return assetRepository.findAll(Sort.by("lastPrice"));
     }
