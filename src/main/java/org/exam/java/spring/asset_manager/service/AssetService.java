@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.exam.java.spring.asset_manager.model.Asset;
+import org.exam.java.spring.asset_manager.model.Category;
 import org.exam.java.spring.asset_manager.repository.AssetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -59,6 +60,10 @@ public class AssetService {
         }
 
         return assetAttempt.get();
+    }
+
+    public List<Asset> findByCategory(Category category) {
+        return assetRepository.findByCategory(category);
     }
 
     public List<Asset> findByName(String name) {

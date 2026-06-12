@@ -47,7 +47,7 @@ public class Asset {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
     @ManyToMany

@@ -3,7 +3,9 @@ package org.exam.java.spring.asset_manager.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.exam.java.spring.asset_manager.model.Asset;
 import org.exam.java.spring.asset_manager.model.Category;
+import org.exam.java.spring.asset_manager.repository.AssetRepository;
 import org.exam.java.spring.asset_manager.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,6 +16,9 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AssetRepository assetRepository;
 
     // READ
     public List<Category> findAll() {
@@ -45,8 +50,15 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    // UPDATE
-    public void delete(Integer id) {
-        categoryRepository.deleteById(id);
+    // DELETE
+    public void deleteById(Integer categoryId) {
+
+        List<Asset> assets = assetRepository.findByCategoryId(categoryId);
+
+        for (Asset asset : assets) {
+            asset.setCategory(null);
+        }
+
+        categoryRepository.deleteById(categoryId);
     }
 }
