@@ -97,4 +97,13 @@ public class AssetService {
         return assetRepository.save(asset);
     }
 
+    //
+    public void detachFromCategory(Integer assetId) {
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow();
+
+        asset.setCategory(null);
+        assetRepository.save(asset);
+    }
+
 }

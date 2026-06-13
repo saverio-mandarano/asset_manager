@@ -211,4 +211,10 @@ public class AssetController {
         assetService.create(formAsset);
         return "redirect:/assets/" + formAsset.getId();
     }
+
+    @PostMapping("/{id}/detach")
+    public String detach(@PathVariable Integer id, @RequestParam Integer categoryId) {
+        assetService.detachFromCategory(id);
+        return "redirect:/categories/" + categoryId;
+    }
 }

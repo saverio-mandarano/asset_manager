@@ -83,7 +83,7 @@
     </form>
   </div>
 
-  <h6 class="my-4 mx-1">
+  <h6 class="mt-5 mb-3 mx-1">
     Asset count:
     <span
       th:text="${category.assets != null ? category.assets.size() : 0}"
@@ -114,7 +114,7 @@
         <td th:text="'$ ' + ${asset.lastPrice}"></td>
         <td>
           <form
-            th:action="@{/assets/{id}/detach(id=${asset.id})}"
+            th:action="@{/assets/{id}/detach(id=${asset.id}, categoryId=${category.id})}"
             method="post"
           >
             <button type="submit" class="btn btn-sm btn-outline-danger">
