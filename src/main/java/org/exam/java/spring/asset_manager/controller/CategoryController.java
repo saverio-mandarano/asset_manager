@@ -109,11 +109,11 @@ public class CategoryController {
     // public String create(Authentication authentication, Model model) {
     public String create(Model model) {
         model.addAttribute("category", new Category());
-        // model.addAttribute("username", authentication.getName());
         model.addAttribute("pageTitle", "Create category");
 
         model.addAttribute("content", "categories/create-or-edit");
         return "layout/main";
+
     }
 
     @PostMapping("/create")

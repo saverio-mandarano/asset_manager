@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
@@ -28,6 +29,11 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @NotBlank(message = "The description must not be null, nor empty or blank")
+    @Column(length = 1000)
+    private String description;
+
+    @NotNull(message = "Risk level is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "risk_level", nullable = false)
     private Category.RiskLevel riskLevel;
@@ -103,5 +109,13 @@ public class Category {
 
     public void setRiskLevel(Category.RiskLevel riskLevel) {
         this.riskLevel = riskLevel;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
