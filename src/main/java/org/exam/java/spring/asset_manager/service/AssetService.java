@@ -62,8 +62,8 @@ public class AssetService {
         return assetAttempt.get();
     }
 
-    public List<Asset> findByCategory(Category category) {
-        return assetRepository.findByCategory(category);
+    public List<Asset> findByCategory(Integer categoryId) {
+        return assetRepository.findByCategoryId(categoryId);
     }
 
     public List<Asset> findByName(String name) {
