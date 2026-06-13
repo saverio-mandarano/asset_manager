@@ -52,7 +52,7 @@
               th:href="@{/assets(sortBy='price', direction=${sortBy == 'price' and direction == 'asc' ? 'desc' : 'asc'})}"
               class="text-decoration-none text-light"
             >
-              LAST_PRICE
+              LAST PRICE
               <i
                 class="fa-solid"
                 th:classappend="${sortBy == 'price' ? (direction == 'asc' ? ' fa-sort-up' : ' fa-sort-down') : ' fa-sort'}"
@@ -78,7 +78,7 @@
         <tr th:each="asset : ${assets}">
           <td th:text="${asset.ticker}"></td>
           <td th:text="${asset.name}"></td>
-          <td th:text="${asset.lastPrice}"></td>
+          <td th:text="'$ ' + ${asset.lastPrice}"></td>
           <td th:text="${asset.category}"></td>
           <td class="text-center">
             <a

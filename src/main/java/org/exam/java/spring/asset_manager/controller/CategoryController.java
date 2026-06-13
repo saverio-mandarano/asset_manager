@@ -80,7 +80,7 @@ public class CategoryController {
     public String show(Authentication authentication, @PathVariable("id") Integer id, Model model) {
         model.addAttribute("category", categoryService.findById(id));
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("pageTitle", "Category details");
+        model.addAttribute("pageTitle", categoryService.findById(id).getName() + " details");
 
         model.addAttribute("content", "categories/show");
         return "layout/main";
@@ -135,7 +135,7 @@ public class CategoryController {
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("category", categoryService.findById(id));
         model.addAttribute("edit", true);
-        model.addAttribute("pageTitle", "Edit category");
+        model.addAttribute("pageTitle", "Edit " + categoryService.findById(id).getName());
 
         model.addAttribute("content", "categories/create-or-edit");
         return "layout/main";
@@ -144,7 +144,7 @@ public class CategoryController {
     @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("category") Category formCategory,
             BindingResult bindingResult, Model model) {
-        model.addAttribute("pageTitle", "Edit category");
+        model.addAttribute("pageTitle", "Edit " + formCategory.getName());
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("edit", true);

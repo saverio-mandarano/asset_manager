@@ -1,9 +1,9 @@
 <div th:fragment="content" class="text-white">
   <div class="mb-4">
-    <h2
+    <h1
       class="fw-bold"
-      th:text="${edit} ?  'Edit a Category' : 'Create a New Category' "
-    ></h2>
+      th:text="${edit} ?  ${pageTitle} : 'Create a New Category' "
+    ></h1>
     <p
       class="text-secondary"
       th:text="${edit} ? 'Edit the name, risk level and description.' : 'Define the name, risk level and description.' "
@@ -90,7 +90,6 @@
                   ><strong> DESCRIPTION: </strong>
                 </label>
 
-                <!-- name******************************* -->
                 <textarea
                   id="description"
                   th:field="*{description}"
