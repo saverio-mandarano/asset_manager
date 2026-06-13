@@ -1,7 +1,9 @@
 package org.exam.java.spring.asset_manager.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.exam.java.spring.asset_manager.model.Asset;
 import org.exam.java.spring.asset_manager.model.Category;
@@ -41,6 +43,38 @@ public class CategoryService {
         return categoryAttempt.get();
     }
 
+    // ***
+    public List<Category> findAllOrderByRiskLevelAsc() {
+        return categoryRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt(c -> c.getRiskLevel().getOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Category> findAllOrderByRiskLevelDesc() {
+        return categoryRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt((Category c) -> c.getRiskLevel().getOrder()).reversed())
+                .collect(Collectors.toList());
+    }
+    // ***
+
+    // *** */
+    public List<Category> findAllOrderByAssetsCountAsc() {
+        return categoryRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt(c -> c.getAssets().size()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Category> findAllOrderByAssetsCountDesc() {
+        return categoryRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt((Category c) -> c.getAssets().size()).reversed())
+                .collect(Collectors.toList());
+    }
+
+    // *** */
     // CREATE
     public Category create(Category category) {
         return categoryRepository.save(category);

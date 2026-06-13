@@ -28,7 +28,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public String index(Authentication authentication,
+    public String index(
             @RequestParam(name = "sortBy", required = false) String sortBy,
             @RequestParam(name = "direction", required = false) String direction,
             Model model) {
@@ -47,8 +47,17 @@ public class CategoryController {
                 case "name":
                     categories = categoryService.findAllSorted("name", sortDirection);
                     break;
-                case "id":
-                    categories = categoryService.findAllSorted("id", sortDirection);
+                case "riskLevel":
+                    // categories = categoryService.findAllSorted("riskLevel", sortDirection);
+                    //
+                    categories = direction.equalsIgnoreCase("asc")
+                            ? categoryService.findAllOrderByRiskLevelAsc()
+                            : categoryService.findAllOrderByRiskLevelDesc();
+                    break;
+                case "assetsCount":
+                    categories = direction.equalsIgnoreCase("asc")
+                            ? categoryService.findAllOrderByAssetsCountAsc()
+                            : categoryService.findAllOrderByAssetsCountDesc();
                     break;
                 default:
                     categories = categoryService.findAll();
@@ -59,7 +68,6 @@ public class CategoryController {
         }
 
         model.addAttribute("categories", categories);
-        model.addAttribute("username", authentication.getName());
         model.addAttribute("pageTitle", "Category list");
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("direction", direction);
