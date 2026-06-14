@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,14 @@ public class Tag {
 
     @NotBlank(message = "A tags cannot exist without a name")
     private String name;
+
+    @NotBlank(message = "A tags cannot exist without a type")
+    @Column(nullable = false)
+    private String type;
+
+    @NotBlank(message = "A tags cannot exist without a description")
+    @Column(nullable = false)
+    private String description;
 
     @ManyToMany(mappedBy = "tags")
     @JsonBackReference
@@ -48,6 +57,26 @@ public class Tag {
 
     public void setAssets(List<Asset> assets) {
         this.assets = assets;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
