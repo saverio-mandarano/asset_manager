@@ -110,15 +110,60 @@
         </td>
         <td th:text="'$ ' + ${asset.lastPrice}"></td>
         <td>
-          <form
-            th:action="@{/assets/{id}/detach-tag(id=${asset.id}, tagId=${tag.id})}"
-            method="post"
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            data-bs-toggle="modal"
+            th:data-bs-target="|#unlink-modal-${asset.id}|"
           >
-            <button type="submit" class="btn btn-sm btn-outline-danger">
-              <i class="fa-solid fa-link-slash"></i>
-            </button>
-          </form>
+            <i class="fa-solid fa-link-slash"></i>
+          </button>
+
+          <div
+            class="modal fade"
+            th:id="|unlink-modal-${asset.id}|"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" data-bs-theme="dark">
+              <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header">
+                  <h4 class="modal-title"><strong>Unlink Asset</strong></h4>
+                  <button
+                    type="button"
+                    class="btn-close-white btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to unlink "<strong
+                    th:text="${asset.name}"
+                  ></strong
+                  >" from tag "<strong th:text="${tag.name}"></strong>"?
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <form
+                    th:action="@{/assets/{id}/detach-tag(id=${asset.id}, tagId=${tag.id})}"
+                    method="post"
+                  >
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa-solid fa-link-slash me-1"></i> Unlink
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </td>
+        <!--  -->
       </tr>
     </tbody>
   </table>
