@@ -226,4 +226,11 @@ public class AssetController {
     }
 
     // DELETE
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+
+        assetService.deleteById(id);
+
+        return "redirect:/assets";
+    }
 }

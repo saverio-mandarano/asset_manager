@@ -124,4 +124,26 @@ public class AssetService {
         assetRepository.save(asset);
     }
 
+    // DELETE
+    public void deleteById(Integer assetId) {
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow(() -> new RuntimeException("Asset not found with id: " + assetId));
+
+        // rimuovo la relazione con la category (one to many)
+        if (asset.getCategory() != null) {
+            asset.getCategory().getAssets().remove(asset);
+            asset.setCategory(null);
+        }
+
+        // rimuovo le relazioni con i tags (many to many)
+        if (asset.getTags() != null) {
+            for (Tag tag : asset.getTags()) {
+                tag.getAssets().remove(asset);
+            }
+            asset.getTags().clear();
+        }
+
+        assetRepository.deleteById(assetId);
+    }
+
 }
