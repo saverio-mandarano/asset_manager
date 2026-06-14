@@ -17,12 +17,11 @@
       class="btn btn-sm btn-outline-warning me-2"
       ><i class="fa-solid fa-pen-to-square p-1"></i
     ></a>
-    <form th:action="@{/categories/delete}" th:method="post" class="d-inline">
-      <input
-        type="hidden"
-        th:name="${_csrf.parameterName}"
-        th:value="${_csrf.token}"
-      />
+    <form
+      th:action="@{/categories/delete/{id}(id = ${category.id})}"
+      th:method="post"
+      class="d-inline"
+    >
       <button
         type="button"
         class="btn btn-sm btn-outline-danger"
@@ -104,7 +103,7 @@
     </thead>
     <tbody>
       <tr th:each="asset : ${category.assets}">
-        <td th:text="${asset.ticker}">1</td>
+        <td th:text="${asset.ticker}"></td>
         <td>
           <a
             th:href="@{/assets/{id}(id=${asset.id})}"
