@@ -178,7 +178,7 @@ public class AssetController {
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("asset") Asset formAsset,
-            BindingResult bindingResult, Model model) {
+            BindingResult bindingResult, Model model, @RequestParam(required = false) Integer categoryId) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("pageTitle", "Create Asset");
 
@@ -187,6 +187,12 @@ public class AssetController {
             model.addAttribute("tags", tagService.findAll());
             model.addAttribute("content", "assets/create-or-edit");
             return "layout/main";
+        }
+
+        if (categoryId != null) {
+            formAsset.setCategory(categoryService.findById(categoryId));
+        } else {
+            formAsset.setCategory(null);
         }
 
         assetService.create(formAsset);
@@ -208,7 +214,7 @@ public class AssetController {
 
     @PostMapping("/edit/{id}")
     public String update(@PathVariable Integer id, @Valid @ModelAttribute("asset") Asset formAsset,
-            BindingResult bindingResult, Model model) {
+            BindingResult bindingResult, Model model, @RequestParam(required = false) Integer categoryId) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("pageTitle", "Edit " + formAsset.getName());
 
@@ -219,7 +225,11 @@ public class AssetController {
             model.addAttribute("content", "assets/create-or-edit");
             return "layout/main";
         }
-
+        if (categoryId != null) {
+            formAsset.setCategory(categoryService.findById(categoryId));
+        } else {
+            formAsset.setCategory(null);
+        }
         assetService.update(formAsset);
         return "redirect:/assets/" + id;
     }

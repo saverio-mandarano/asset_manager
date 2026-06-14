@@ -123,17 +123,17 @@
               </div>
 
               <!-- category -->
-              <div class="mb-3 col-5">
+              <div class="mb-3 col-5 mt-1">
                 <label for="category" class="form-label"
                   ><strong>CATEGORY:</strong></label
                 >
-                <select id="category" name="category.id" class="form-select">
+                <select class="form-select" id="category" name="categoryId">
                   <option value="">-- No category --</option>
                   <option
-                    th:each="cat : ${categories}"
-                    th:value="${cat.id}"
-                    th:text="${cat.name}"
-                    th:selected="${asset.category != null && asset.category.id == cat.id}"
+                    th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}"
+                    th:selected="${asset.category != null && asset.category.id == category.id}"
                   ></option>
                 </select>
               </div>
