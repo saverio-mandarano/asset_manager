@@ -1,4 +1,174 @@
 <div th:fragment="content" class="text-white">
-  <h2>create-or-edit content !</h2>
-  <h3 th:text="${edit} ? 'Sei in **Edit** ' : 'Sei in **Create** '"></h3>
+  <div class="mb-4">
+    <h1
+      class="fw-bold"
+      th:text="${edit} ?  ${pageTitle} : 'Create a New Category' "
+    ></h1>
+    <p
+      class="text-secondary"
+      th:text="${edit} ? 'Edit the name, ticker and  last price.' : 'Define the name, ticker and  last price.' "
+    ></p>
+  </div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-10 ms-5">
+        <div class="card bg-dark">
+          <div class="card-body p-5">
+            <form
+              id="asset-form"
+              th:object="${asset}"
+              th:action="${edit} ? @{/assets/edit/{id}(id = ${asset.id})} : @{/assets/create}"
+              method="post"
+              class="row ms-5 ps-5"
+            >
+              <!-- name -->
+              <div class="mb-3 col-5">
+                <label for="name" class="form-label"
+                  ><strong>NAME:</strong></label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  th:field="*{name}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('name')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('name')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- ticker -->
+              <div class="mb-3 col-5">
+                <label for="ticker" class="form-label"
+                  ><strong>TICKER:</strong></label
+                >
+                <input
+                  type="text"
+                  id="ticker"
+                  th:field="*{ticker}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('ticker')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('name')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- imageUrl -->
+              <div class="mb-3 col-5">
+                <label for="imageUrl" class="form-label"
+                  ><strong>IMAGE URL:</strong></label
+                >
+                <input
+                  type="text"
+                  id="imageUrl"
+                  th:field="*{imageUrl}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('imageUrl')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('name')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- lastPrice -->
+              <div class="mb-3 col-5">
+                <label for="lastPrice" class="form-label"
+                  ><strong>LAST PRICE:</strong></label
+                >
+                <input
+                  type="number"
+                  step="0.01"
+                  id="lastPrice"
+                  th:field="*{lastPrice}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('lastPrice')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('lastPrice')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- description -->
+              <div class="mb-3 col-10">
+                <label for="description" class="form-label"
+                  ><strong> DESCRIPTION: </strong>
+                </label>
+
+                <textarea
+                  id="description"
+                  th:field="*{description}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                  rows="5"
+                ></textarea>
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('description')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('description')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- submit/reset -->
+              <div class="d-flex gap-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary fw-bold"
+                  value="create/edit asset"
+                  th:text="${edit} ? 'EDIT' : 'CREATE'"
+                ></button>
+                <button
+                  type="reset"
+                  class="btn btn-secondary"
+                  value="reset all fields"
+                >
+                  <strong>RESET</strong>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
 </div>

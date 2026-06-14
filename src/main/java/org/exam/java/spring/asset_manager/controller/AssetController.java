@@ -78,7 +78,7 @@ public class AssetController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("asset", assetService.findById(id));
-        model.addAttribute("pageTitle", "Asset details");
+        model.addAttribute("pageTitle", assetService.findById(id).getName() + " details");
 
         model.addAttribute("content", "assets/show");
         return "layout/main";
@@ -161,7 +161,7 @@ public class AssetController {
     public String create(Model model) {
         model.addAttribute("asset", new Asset());
         // model.addAttribute("ingredients", ingredientRepository.findAll());
-        model.addAttribute("pageTitle", "Asset create");
+        model.addAttribute("pageTitle", "Create Asset");
 
         model.addAttribute("content", "assets/create-or-edit");
         return "layout/main";
@@ -171,7 +171,7 @@ public class AssetController {
     public String store(@Valid @ModelAttribute("asset") Asset formAsset,
             BindingResult bindingResult, Model model) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
-        model.addAttribute("pageTitle", "Asset create");
+        model.addAttribute("pageTitle", "Create Asset");
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("content", "assets/create-or-edit");
@@ -188,7 +188,7 @@ public class AssetController {
         model.addAttribute("asset", assetService.findById(id));
         // model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("edit", true);
-        model.addAttribute("pageTitle", "Asset edit");
+        model.addAttribute("pageTitle", "Edit " + assetService.findById(id).getName());
 
         model.addAttribute("content", "assets/create-or-edit");
         return "layout/main";
@@ -198,17 +198,16 @@ public class AssetController {
     public String update(@Valid @ModelAttribute("asset") Asset formAsset,
             BindingResult bindingResult, Model model) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
-        model.addAttribute("pageTitle", "Asset edit");
+        model.addAttribute("pageTitle", "Edit " + formAsset.getName());
 
         if (bindingResult.hasErrors()) {
             // check***
             model.addAttribute("edit", true);
-
             model.addAttribute("content", "assets/create-or-edit");
             return "layout/main";
         }
 
-        assetService.create(formAsset);
+        assetService.update(formAsset);
         return "redirect:/assets/" + formAsset.getId();
     }
 
@@ -225,4 +224,6 @@ public class AssetController {
 
         return "redirect:/tags/" + tagId;
     }
+
+    // DELETE
 }
