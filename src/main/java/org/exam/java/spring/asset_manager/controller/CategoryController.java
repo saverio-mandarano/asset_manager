@@ -141,7 +141,7 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("category") Category formCategory,
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("category") Category formCategory,
             BindingResult bindingResult, Model model) {
         model.addAttribute("pageTitle", "Edit " + formCategory.getName());
 
@@ -152,7 +152,7 @@ public class CategoryController {
         }
 
         categoryService.update(formCategory);
-        return "redirect:/categories/" + formCategory.getId();
+        return "redirect:/categories/" + id;
     }
 
     // DELETE

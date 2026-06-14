@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.exam.java.spring.asset_manager.model.Asset;
 import org.exam.java.spring.asset_manager.service.AssetService;
+import org.exam.java.spring.asset_manager.service.CategoryService;
+import org.exam.java.spring.asset_manager.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,12 @@ public class AssetController {
 
     @Autowired
     private AssetService assetService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private TagService tagService;
 
     // READ
     @GetMapping
@@ -160,8 +168,9 @@ public class AssetController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("asset", new Asset());
-        // model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("pageTitle", "Create Asset");
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("tags", tagService.findAll());
 
         model.addAttribute("content", "assets/create-or-edit");
         return "layout/main";
@@ -174,6 +183,8 @@ public class AssetController {
         model.addAttribute("pageTitle", "Create Asset");
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("tags", tagService.findAll());
             model.addAttribute("content", "assets/create-or-edit");
             return "layout/main";
         }
@@ -186,7 +197,8 @@ public class AssetController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("asset", assetService.findById(id));
-        // model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("tags", tagService.findAll());
         model.addAttribute("edit", true);
         model.addAttribute("pageTitle", "Edit " + assetService.findById(id).getName());
 
@@ -195,20 +207,21 @@ public class AssetController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("asset") Asset formAsset,
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("asset") Asset formAsset,
             BindingResult bindingResult, Model model) {
         // model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("pageTitle", "Edit " + formAsset.getName());
 
         if (bindingResult.hasErrors()) {
-            // check***
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("tags", tagService.findAll());
             model.addAttribute("edit", true);
             model.addAttribute("content", "assets/create-or-edit");
             return "layout/main";
         }
 
         assetService.update(formAsset);
-        return "redirect:/assets/" + formAsset.getId();
+        return "redirect:/assets/" + id;
     }
 
     @PostMapping("/{id}/detach")

@@ -122,6 +122,44 @@
                 </div>
               </div>
 
+              <!-- category -->
+              <div class="mb-3 col-5">
+                <label for="category" class="form-label"
+                  ><strong>CATEGORY:</strong></label
+                >
+                <select id="category" name="category.id" class="form-select">
+                  <option value="">-- No category --</option>
+                  <option
+                    th:each="cat : ${categories}"
+                    th:value="${cat.id}"
+                    th:text="${cat.name}"
+                    th:selected="${asset.category != null && asset.category.id == cat.id}"
+                  ></option>
+                </select>
+              </div>
+
+              <!-- tags -->
+              <div class="mb-3 col-10">
+                <label class="form-label"><strong>TAGS:</strong></label>
+                <div class="d-flex flex-wrap gap-3">
+                  <div th:each="tag : ${tags}" class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      th:id="${tag.id}"
+                      name="tags"
+                      th:value="${tag.id}"
+                      th:checked="${asset.tags != null && asset.tags.contains(tag)}"
+                    />
+                    <label
+                      class="form-check-label"
+                      th:for="${tag.id}"
+                      th:text="${tag.name}"
+                    ></label>
+                  </div>
+                </div>
+              </div>
+
               <!-- description -->
               <div class="mb-3 col-10">
                 <label for="description" class="form-label"
