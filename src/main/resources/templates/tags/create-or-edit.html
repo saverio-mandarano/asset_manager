@@ -1,4 +1,123 @@
 <div th:fragment="content" class="text-white">
-  <h2>create-or-edit content !</h2>
-  <h3 th:text="${edit} ? 'Sei in **Edit** ' : 'Sei in **Create** '"></h3>
+  <div class="mb-4">
+    <h1
+      class="fw-bold"
+      th:text="${edit} ?  ${pageTitle} : 'Create a New Tag' "
+    ></h1>
+    <p
+      class="text-secondary"
+      th:text="${edit} ? 'Edit the name, type and description.' : 'Define the name, type and description.' "
+    ></p>
+  </div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-10 ms-5">
+        <div class="card bg-dark">
+          <div class="card-body p-5">
+            <form
+              id="tag-form"
+              th:object="${tag}"
+              th:action="${edit} ? @{/tags/edit/{id}(id = ${tag.id})} : @{/tags/create}"
+              method="post"
+              class="row ms-5 ps-5"
+            >
+              <!-- name -->
+              <div class="mb-3 col-5">
+                <label for="name" class="form-label"
+                  ><strong>NAME:</strong></label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  th:field="*{name}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('name')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('name')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- type -->
+              <div class="mb-3 col-5">
+                <label for="type" class="form-label"
+                  ><strong>TYPE:</strong></label
+                >
+                <input
+                  type="text"
+                  id="type"
+                  th:field="*{type}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('type')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('type')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- description -->
+              <div class="mb-3 col-10">
+                <label for="description" class="form-label"
+                  ><strong> DESCRIPTION: </strong>
+                </label>
+
+                <textarea
+                  id="description"
+                  th:field="*{description}"
+                  th:errorClass="is-invalid"
+                  class="form-control"
+                  rows="5"
+                ></textarea>
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('description')}"
+                >
+                  <ul>
+                    <li
+                      th:each="err : ${#fields.errors('description')}"
+                      th:text="${err}"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- submit/reset -->
+              <div class="d-flex gap-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary fw-bold"
+                  value="create/edit tag"
+                  th:text="${edit} ? 'EDIT' : 'CREATE'"
+                ></button>
+                <button
+                  type="reset"
+                  class="btn btn-secondary"
+                  value="reset all fields"
+                >
+                  <strong>RESET</strong>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
 </div>

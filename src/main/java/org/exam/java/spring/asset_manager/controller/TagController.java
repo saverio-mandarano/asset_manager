@@ -105,8 +105,8 @@ public class TagController {
     @GetMapping("/create")
     // public String create(Authentication authentication, Model model) {
     public String create(Model model) {
-        model.addAttribute("Tag", new Tag());
-        model.addAttribute("pageTitle", "Create tag");
+        model.addAttribute("tag", new Tag());
+        model.addAttribute("pageTitle", "Create Tag");
 
         model.addAttribute("content", "tags/create-or-edit");
         return "layout/main";
@@ -116,7 +116,7 @@ public class TagController {
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("tag") Tag formTag,
             BindingResult bindingResult, Model model) {
-        model.addAttribute("pageTitle", "Create tag");
+        model.addAttribute("pageTitle", "Create Tag");
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("content", "tags/create-or-edit");
