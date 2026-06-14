@@ -22,14 +22,14 @@
         <div class="row">
           <!-- SIDEBAR -->
           <aside class="col-2 bg-light vh-100 m-3 p-3 bg-dark text-white">
-            <th:block th:replace="fragments/sidebar :: sidebar"></th:block>
+            <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
           </aside>
 
           <!-- CONTENT -->
           <div class="col-9 p-4">
             <!-- sostituisco questo nodo con il fragment chiamato content, definito 
             nella view attualmente in rendering -->
-            <th:block th:insert="${content}"></th:block>
+            <th:block th:insert="~{${content}}"></th:block>
           </div>
         </div>
       </div>
