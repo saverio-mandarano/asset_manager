@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import org.exam.java.spring.asset_manager.model.Asset;
 import org.exam.java.spring.asset_manager.model.Category;
+import org.exam.java.spring.asset_manager.model.Tag;
 import org.exam.java.spring.asset_manager.repository.AssetRepository;
+import org.exam.java.spring.asset_manager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class AssetService {
 
     @Autowired
     private AssetRepository assetRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     // READ
     public List<Asset> findAll() {
@@ -103,6 +108,19 @@ public class AssetService {
                 .orElseThrow();
 
         asset.setCategory(null);
+        assetRepository.save(asset);
+    }
+
+    public void detachTag(Integer assetId, Integer tagId) {
+
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow();
+
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow();
+
+        asset.getTags().remove(tag);
+
         assetRepository.save(asset);
     }
 

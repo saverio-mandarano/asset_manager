@@ -217,4 +217,12 @@ public class AssetController {
         assetService.detachFromCategory(id);
         return "redirect:/categories/" + categoryId;
     }
+
+    @PostMapping("/{id}/detach-tag")
+    public String detachTag(@PathVariable Integer id, @RequestParam Integer tagId) {
+
+        assetService.detachTag(id, tagId);
+
+        return "redirect:/tags/" + tagId;
+    }
 }
