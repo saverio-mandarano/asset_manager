@@ -1,5 +1,6 @@
 package org.exam.java.spring.asset_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
@@ -72,6 +73,7 @@ public class Category {
     // @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @JsonManagedReference
+    @JsonIgnore
     private List<Asset> assets;
 
     public List<Asset> getAssets() {

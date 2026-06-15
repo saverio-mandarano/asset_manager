@@ -43,6 +43,10 @@ public class CategoryService {
         return categoryAttempt.get();
     }
 
+    public Optional<Category> findByIdOptional(Integer id) {
+        return categoryRepository.findById(id);
+    }
+
     // ***
     public List<Category> findAllOrderByRiskLevelAsc() {
         return categoryRepository.findAll()
