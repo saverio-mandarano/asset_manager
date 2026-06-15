@@ -38,6 +38,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/categories/**")
                         .hasAuthority("ADMIN")
 
+                        // api
+                        .requestMatchers("/api/**").permitAll()
+
                         // tutto il resto richiedo autenticazione
                         .anyRequest()
                         .authenticated())

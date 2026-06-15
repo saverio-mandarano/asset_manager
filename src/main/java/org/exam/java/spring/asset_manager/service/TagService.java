@@ -42,6 +42,10 @@ public class TagService {
         return tagAttempt.get();
     }
 
+    public Optional<Tag> findByIdOptional(Integer id) {
+        return tagRepository.findById(id);
+    }
+
     public List<Tag> findAllOrderByAssetsCountAsc() {
         return tagRepository.findAll()
                 .stream()
