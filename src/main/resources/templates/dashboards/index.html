@@ -85,7 +85,7 @@
   </div>
 
   <!-- 2nd row -->
-  <div class="row g-4 mb-3">
+  <div class="row g-4 mb-3" sec:authorize="hasAuthority('ADMIN')">
     <div class="col-6">
       <div
         class="card bg-dark"
@@ -124,7 +124,7 @@
   </div>
 
   <!-- 3rd row -->
-  <div class="row g-4 mb-5">
+  <div class="row g-4 mb-5" sec:authorize="hasAuthority('ADMIN')">
     <th:block th:if="${uncategorized == 0}"
       ><div class="col-6"></div>
     </th:block>

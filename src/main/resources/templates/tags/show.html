@@ -30,73 +30,76 @@
   </div>
   <div class="d-flex gap-3 mb-5">
     <a
+      sec:authorize="hasAuthority('ADMIN')"
       th:href="@{/tags/edit/{id}(id=${tag.id})}"
       class="btn btn-sm btn-outline-warning me-2"
       ><i class="fa-solid fa-pen-to-square p-1"></i
     ></a>
-    <form
-      th:action="@{/tags/delete/{id}(id = ${tag.id})}"
-      th:method="post"
-      class="d-inline"
-    >
-      <button
-        type="button"
-        class="btn btn-sm btn-outline-danger"
-        data-bs-toggle="modal"
-        th:data-bs-target="|#delete-modal-${tag.id}|"
+    <th:block sec:authorize="hasAuthority('ADMIN')">
+      <form
+        th:action="@{/tags/delete/{id}(id = ${tag.id})}"
+        th:method="post"
+        class="d-inline"
       >
-        <i class="fa-solid fa-trash p-1"></i>
-      </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          data-bs-toggle="modal"
+          th:data-bs-target="|#delete-modal-${tag.id}|"
+        >
+          <i class="fa-solid fa-trash p-1"></i>
+        </button>
 
-      <div
-        class="modal fade"
-        th:id="|delete-modal-${tag.id}|"
-        tabindex="-1"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" data-bs-theme="dark">
-          <div class="modal-content bg-dark text-white border-secondary">
-            <div class="modal-header">
-              <h4 class="modal-title">
-                <strong> Delete Tag</strong>
-              </h4>
-              <button
-                type="button"
-                class="btn-close-white btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              Are you sure you want to delete the tag: "<strong
-                th:text="${tag.name}"
-              ></strong
-              >"?
-              <div class="text-danger fs-6">
-                <strong> This action cannot be undone.</strong>
+        <div
+          class="modal fade"
+          th:id="|delete-modal-${tag.id}|"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" data-bs-theme="dark">
+            <div class="modal-content bg-dark text-white border-secondary">
+              <div class="modal-header">
+                <h4 class="modal-title">
+                  <strong> Delete Tag</strong>
+                </h4>
+                <button
+                  type="button"
+                  class="btn-close-white btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-              <form
-                th:action="@{/tags/delete/{id}(id=${tag.id})}"
-                method="post"
-              >
-                <button type="submit" class="btn btn-danger">
-                  <i class="fa-solid fa-trash me-1"></i> Delete
+              <div class="modal-body">
+                Are you sure you want to delete the tag: "<strong
+                  th:text="${tag.name}"
+                ></strong
+                >"?
+                <div class="text-danger fs-6">
+                  <strong> This action cannot be undone.</strong>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
                 </button>
-              </form>
+                <form
+                  th:action="@{/tags/delete/{id}(id=${tag.id})}"
+                  method="post"
+                >
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-trash me-1"></i> Delete
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </th:block>
   </div>
 
   <h6 class="mt-5 mb-3 mx-1">
@@ -113,7 +116,8 @@
         <th>TICKER</th>
         <th>NAME</th>
         <th>LAST PRICE</th>
-        <th>UNLINK</th>
+        <th sec:authorize="hasAuthority('USER')"></th>
+        <th sec:authorize="hasAuthority('ADMIN')">UNLINK</th>
       </tr>
     </thead>
     <tbody>
@@ -127,7 +131,8 @@
           ></a>
         </td>
         <td th:text="'$ ' + ${asset.lastPrice}"></td>
-        <td>
+        <td sec:authorize="hasAuthority('USER')"></td>
+        <td sec:authorize="hasAuthority('ADMIN')">
           <button
             type="button"
             class="btn btn-sm btn-outline-danger"
