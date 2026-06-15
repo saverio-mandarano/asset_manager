@@ -2,7 +2,8 @@
   <div class="mb-4">
     <h2 class="fw-bold">[[${asset.name}]] details</h2>
     <p class="text-secondary">
-      Read the [[${asset.name}]] details, its category and associated tags.
+      Read the [[${asset.name}]] details, its category and the associated tags
+      list.
     </p>
   </div>
 
@@ -109,16 +110,20 @@
     <thead>
       <tr>
         <th>TAG</th>
-        <th>DESCRIPTION</th>
+        <th>TYPE</th>
         <th>UNLINK</th>
       </tr>
     </thead>
     <tbody>
       <tr th:each="tag : ${asset.tags}">
         <td>
-          <a th:href="@{/tags/{id}(id=${tag.id})}" th:text="${tag.name}"></a>
+          <a
+            th:href="@{/tags/{id}(id=${tag.id})}"
+            class="text-uppercase"
+            th:text="${tag.name}"
+          ></a>
         </td>
-        <td th:text="${tag.description}"></td>
+        <td class="text-uppercase" th:text="${tag.type}"></td>
         <td>
           <button
             type="button"

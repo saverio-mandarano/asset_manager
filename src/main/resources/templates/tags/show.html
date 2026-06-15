@@ -6,9 +6,26 @@
     </p>
   </div>
   <div class="card mb-3 bg-dark">
-    <div class="card-body">
+    <!-- <div class="card-body">
       <h3 class="card-title mb-4 text-center">Description</h3>
       <p class="text-secondary mb-3" th:text="${tag.description}"></p>
+    </div> -->
+
+    <div class="text-secondary card-body">
+      <p class="mb-1">
+        <strong>Name:</strong>
+        <span th:text="${tag.name}" class="text-uppercase"></span>
+      </p>
+
+      <p class="mb-1">
+        <strong>TYPE: </strong>
+        <span th:text="${tag.type}" class="text-uppercase"></span>
+      </p>
+
+      <p class="mb-1">
+        <strong>Description: </strong
+        ><span th:text="${tag.description}"> </span>
+      </p>
     </div>
   </div>
   <div class="d-flex gap-3 mb-5">
@@ -106,6 +123,7 @@
           <a
             th:href="@{/assets/{id}(id=${asset.id})}"
             th:text="${asset.name}"
+            class="text-uppercase"
           ></a>
         </td>
         <td th:text="'$ ' + ${asset.lastPrice}"></td>
