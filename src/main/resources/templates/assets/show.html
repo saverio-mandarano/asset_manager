@@ -1,3 +1,179 @@
 <div th:fragment="content" class="text-white">
-  <h2>Assets show !</h2>
+  <div class="mb-4">
+    <h2 class="fw-bold">[[${asset.name}]] details</h2>
+    <p class="text-secondary">
+      Read the [[${asset.name}]] details, its category and associated tags.
+    </p>
+  </div>
+
+  <div class="card mb-3 bg-dark">
+    <div class="card-body text-secondary">
+      <p class="mb-1">
+        <strong>Ticker:</strong> <span th:text="${asset.ticker}"></span>
+      </p>
+      <p class="mb-1">
+        <strong>Last Price:</strong> $
+        <span th:text="${asset.lastPrice}"></span>
+      </p>
+      <p class="mb-1">
+        <strong>Category:</strong>
+        <span th:if="${asset.category != null}">
+          <a
+            th:href="@{/categories/{id}(id=${asset.category.id})}"
+            th:text="${asset.category.name}"
+          ></a>
+        </span>
+        <span th:if="${asset.category == null}" class="text-muted">None</span>
+      </p>
+
+      <p class="mb-1">
+        <strong>Description:</strong>
+        <span th:text="${asset.description}"></span>
+      </p>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 mb-5">
+    <a
+      th:href="@{/assets/edit/{id}(id=${asset.id})}"
+      class="btn btn-sm btn-outline-warning me-2"
+      ><i class="fa-solid fa-pen-to-square p-1"></i
+    ></a>
+
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-danger"
+      data-bs-toggle="modal"
+      th:data-bs-target="|#delete-modal-${asset.id}|"
+    >
+      <i class="fa-solid fa-trash p-1"></i>
+    </button>
+
+    <div
+      class="modal fade"
+      th:id="|delete-modal-${asset.id}|"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" data-bs-theme="dark">
+        <div class="modal-content bg-dark text-white border-secondary">
+          <div class="modal-header">
+            <h4 class="modal-title"><strong>Delete Asset</strong></h4>
+            <button
+              type="button"
+              class="btn-close-white btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete the asset: "<strong
+              th:text="${asset.name}"
+            ></strong
+            >"?
+            <div class="text-danger fs-6">
+              <strong>This action cannot be undone.</strong>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <form
+              th:action="@{/assets/delete/{id}(id=${asset.id})}"
+              method="post"
+            >
+              <button type="submit" class="btn btn-danger">
+                <i class="fa-solid fa-trash me-1"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h6 class="mt-5 mb-3 mx-1">
+    Tag count:
+    <span th:text="${asset.tags != null ? asset.tags.size() : 0}"></span>
+  </h6>
+
+  <table
+    th:if="${asset.tags?.size() > 0}"
+    class="table table-striped table-dark"
+  >
+    <thead>
+      <tr>
+        <th>TAG</th>
+        <th>DESCRIPTION</th>
+        <th>UNLINK</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="tag : ${asset.tags}">
+        <td>
+          <a th:href="@{/tags/{id}(id=${tag.id})}" th:text="${tag.name}"></a>
+        </td>
+        <td th:text="${tag.description}"></td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            data-bs-toggle="modal"
+            th:data-bs-target="|#unlink-modal-${tag.id}|"
+          >
+            <i class="fa-solid fa-link-slash"></i>
+          </button>
+
+          <div
+            class="modal fade"
+            th:id="|unlink-modal-${tag.id}|"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" data-bs-theme="dark">
+              <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header">
+                  <h4 class="modal-title"><strong>Unlink Tag</strong></h4>
+                  <button
+                    type="button"
+                    class="btn-close-white btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to unlink "<strong
+                    th:text="${tag.name}"
+                  ></strong
+                  >" from asset "<strong th:text="${asset.name}"></strong>"?
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <form
+                    th:action="@{/assets/{id}/detach-tag(id=${asset.id}, tagId=${tag.id})}"
+                    method="post"
+                  >
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa-solid fa-link-slash me-1"></i> Unlink
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
