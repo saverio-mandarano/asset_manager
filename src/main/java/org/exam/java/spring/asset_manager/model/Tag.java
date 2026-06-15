@@ -28,7 +28,7 @@ public class Tag {
     private String type;
 
     @NotBlank(message = "A tags cannot exist without a description")
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String description;
 
     @ManyToMany(mappedBy = "tags")
