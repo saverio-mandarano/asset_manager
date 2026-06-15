@@ -22,7 +22,23 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(requests -> requests
 
-                        // tutto il resto: richiedi autenticazione per le richieste non specificate
+                        // ADMIN
+                        .requestMatchers("/assets/create", "/assets/edit/**", "/assets/delete/**")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/assets/**")
+                        .hasAuthority("ADMIN")
+
+                        .requestMatchers("/tags/create", "/tags/edit/**", "/tags/delete/**")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/tags/**")
+                        .hasAuthority("ADMIN")
+
+                        .requestMatchers("/categories/create", "/categories/edit/**", "/categories/delete/**")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/categories/**")
+                        .hasAuthority("ADMIN")
+
+                        // tutto il resto richiedo autenticazione
                         .anyRequest()
                         .authenticated())
 
