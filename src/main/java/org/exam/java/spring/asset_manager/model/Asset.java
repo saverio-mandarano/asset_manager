@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,10 +48,12 @@ public class Asset {
 
     @ManyToOne
     @JsonBackReference
+    @JsonIgnore
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "asset_tag", joinColumns = @JoinColumn(name = "asset_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 

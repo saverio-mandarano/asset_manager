@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.exam.java.spring.asset_manager.model.Asset;
-import org.exam.java.spring.asset_manager.model.Category;
 import org.exam.java.spring.asset_manager.model.Tag;
 import org.exam.java.spring.asset_manager.repository.AssetRepository;
 import org.exam.java.spring.asset_manager.repository.TagRepository;
@@ -65,6 +64,10 @@ public class AssetService {
         }
 
         return assetAttempt.get();
+    }
+
+    public Optional<Asset> findByIdOptional(Integer id) {
+        return assetRepository.findById(id);
     }
 
     public List<Asset> findByCategory(Integer categoryId) {
