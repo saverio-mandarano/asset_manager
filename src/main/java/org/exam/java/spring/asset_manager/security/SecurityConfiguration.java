@@ -19,7 +19,9 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .authenticationProvider(authenticationProvider())
+                // .cors(Customizer.withDefaults()) // questo per rest api
+                // .csrf(csrf -> csrf.disable()) // questo per rest api
+                .authenticationProvider(authenticationProvider()) // ?
                 .authorizeHttpRequests(requests -> requests
 
                         // ADMIN
