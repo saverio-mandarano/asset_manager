@@ -47,19 +47,23 @@ public class CategoryController {
                     categories = categoryService.findAllSorted("name", sortDirection);
                     break;
                 case "riskLevel":
-                    // categories = categoryService.findAllSorted("riskLevel", sortDirection);
-                    //
+
                     categories = direction.equalsIgnoreCase("asc")
                             ? categoryService.findAllOrderByRiskLevelAsc()
                             : categoryService.findAllOrderByRiskLevelDesc();
                     break;
                 case "assetsCount":
+                    // valore calcolato
                     categories = direction.equalsIgnoreCase("asc")
                             ? categoryService.findAllOrderByAssetsCountAsc()
                             : categoryService.findAllOrderByAssetsCountDesc();
                     break;
                 default:
                     categories = categoryService.findAll();
+                    // quando sortBy non è null ma non corrisponde a nessun campo
+                    // per esempio se qualcuno scrive nell'URL sortBy=ciao
+                    // lo azzero perchè poi lo passo al model e mni serve per gestire le icone di
+                    // ordinamento
                     sortBy = null;
             }
         } else {

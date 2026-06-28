@@ -49,10 +49,10 @@ public class CategoryService {
 
     // ***
     public List<Category> findAllOrderByRiskLevelAsc() {
-        return categoryRepository.findAll()
+        return categoryRepository.findAll() // prendo tutti i dati
                 .stream()
-                .sorted(Comparator.comparingInt(c -> c.getRiskLevel().getOrder()))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparingInt(c -> c.getRiskLevel().getOrder())) // ordino
+                .collect(Collectors.toList()); // collezioni il risultato in una lista
     }
 
     public List<Category> findAllOrderByRiskLevelDesc() {
