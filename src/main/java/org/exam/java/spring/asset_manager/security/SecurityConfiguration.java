@@ -35,6 +35,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/tags/**")
                         .hasAuthority("ADMIN")
 
+                        .requestMatchers("/webjars/**", "/css/**", "/favicon.ico")
+                        .permitAll()
+
                         .requestMatchers("/categories/create", "/categories/edit/**", "/categories/delete/**")
                         .hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/categories/**")
