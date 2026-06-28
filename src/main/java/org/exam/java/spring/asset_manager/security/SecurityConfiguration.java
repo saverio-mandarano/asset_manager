@@ -48,9 +48,11 @@ public class SecurityConfiguration {
                         .authenticated())
 
                 .formLogin(form -> form
+                        .loginPage("/login")
                         .permitAll())
 
                 .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll())
 
                 .exceptionHandling(exception -> {
