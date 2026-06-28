@@ -10,7 +10,9 @@ import org.exam.java.spring.asset_manager.repository.AssetRepository;
 import org.exam.java.spring.asset_manager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AssetService {
@@ -60,7 +62,7 @@ public class AssetService {
         Optional<Asset> assetAttempt = assetRepository.findById(id);
 
         if (assetAttempt.isEmpty()) {
-            throw new RuntimeException("Asset not found with id: " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found with id: " + id);
         }
 
         return assetAttempt.get();
